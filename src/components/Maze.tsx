@@ -54,7 +54,7 @@ export function Maze() {
         break;
 
       case CellValue.Chosen:
-        bgColor = "bg-emerald-400";
+        bgColor = CellColor.Chosen;
         break;
     }
 
