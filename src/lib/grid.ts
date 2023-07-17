@@ -1,24 +1,26 @@
+import { CellValue } from "@/typing/enums";
+
 export class Grid {
   private _size: number;
   private _grid: number[];
 
   constructor(size: number) {
     this._size = size;
-    this._grid = new Array(this._size * this._size).fill(0);
+    this._grid = new Array(this._size * this._size).fill(CellValue.Passage);
   }
 
   private getIndex(row: number, column: number): number {
     return row * this.size + column;
   }
 
-  public getCellValue(row: number, column: number): number | null {
+  public getCellValue(row: number, column: number): CellValue | null {
     const index = this.getIndex(row, column);
 
     if (index >= 0 && index < this._grid.length) return this._grid[index];
     return null;
   }
 
-  public setCellValue(x: number, y: number, value: number): boolean {
+  public setCellValue(x: number, y: number, value: CellValue): boolean {
     const index = this.getIndex(x, y);
 
     if (!(index >= 0 && index < this._grid.length)) return false;
@@ -31,7 +33,7 @@ export class Grid {
     return this._size;
   }
 
-  public get grid(): number[] {
+  public get grid(): CellValue[] {
     return this._grid;
   }
 }
