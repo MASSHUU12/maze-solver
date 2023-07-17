@@ -1,4 +1,4 @@
-import { CellValue } from "@/typing/enums";
+import { CellValue } from "@/enums";
 
 export class Grid {
   private _size: number;

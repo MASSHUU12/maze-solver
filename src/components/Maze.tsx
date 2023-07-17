@@ -1,5 +1,5 @@
 import { Grid } from "@/lib/grid";
-import { CellValue } from "@/typing/enums";
+import { CellValue } from "@/enums";
 import { useEffect, useState } from "preact/hooks";
 
 export function Maze() {
