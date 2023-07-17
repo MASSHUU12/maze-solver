@@ -1,9 +1,11 @@
 import { Grid } from "@/lib/grid";
 import { CellValue } from "@/enums";
-import { useEffect, useState } from "preact/hooks";
+import { useEffect } from "preact/hooks";
+import { useGridStore } from "@/store/gridStore";
 
 export function Maze() {
-  const [grid, setGrid] = useState(new Grid(10));
+  // const [grid, setGrid] = useState(new Grid(10));
+  const gridStore = useGridStore();
 
   useEffect(() => {
     // Setup basic grid for testing
@@ -26,11 +28,11 @@ export function Maze() {
     g.setCellValue(6, 8, CellValue.Chosen);
     g.setCellValue(7, 8, CellValue.Chosen);
 
-    setGrid(g);
-  }, [grid]);
+    gridStore.grid = g;
+  }, [gridStore]);
 
   function createCell(row: number, col: number) {
-    const val: CellValue = grid.getCellValue(row, col) as number;
+    const val: CellValue = gridStore.grid.getCellValue(row, col) as number;
     let bgColor: string = "";
 
     switch (val) {
@@ -65,17 +67,21 @@ export function Maze() {
 
   function changeCellType(key: string) {
     const [row, col] = key.split(",");
-    console.log(row, col);
+    const currPos = [parseInt(row), parseInt(col)];
+
+    gridStore.selectedCell = [currPos[0], currPos[1]];
+
+    console.log("Pos:", ...gridStore.selectedCell);
   }
 
   return (
     <table class="w-fit border-collapse border-2 border-slate-300">
       <tbody>
-        {Array(grid.size)
+        {Array(gridStore.grid.size)
           .fill(null)
           .map((_, row) => (
             <tr key={row}>
-              {Array(grid.size)
+              {Array(gridStore.grid.size)
                 .fill(null)
                 .map((_, col) => {
                   return createCell(row, col);

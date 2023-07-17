@@ -1,15 +1,15 @@
-import { CellValue } from "@/enums";
+import { Grid } from "@/lib/grid";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
 interface GridStore {
-  grid: CellValue[];
+  grid: Grid;
   selectedCell: [row: number, col: number];
 }
 
 export const useGridStore = create<GridStore>()(
   devtools(set => ({
-    grid: [],
+    grid: new Grid(10),
     selectedCell: [-1, -1],
   })),
 );
