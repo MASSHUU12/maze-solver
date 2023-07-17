@@ -8,11 +8,23 @@ export function Maze() {
   useEffect(() => {
     // Setup basic grid for testing
     const g = new Grid(10);
-    g.setCellValue(2, 2, CellValue.Wall);
-    g.setCellValue(3, 2, CellValue.Wall);
-    g.setCellValue(4, 2, CellValue.Wall);
+
+    for (let i = 0; i < 10; i++) {
+      g.setCellValue(0, i, CellValue.Wall);
+      g.setCellValue(i, 0, CellValue.Wall);
+      g.setCellValue(9, i, CellValue.Wall);
+      g.setCellValue(i, 9, CellValue.Wall);
+      g.setCellValue(i, 5, CellValue.Wall);
+
+      g.setCellValue(4, i - 1, CellValue.Chosen);
+    }
+
     g.setCellValue(4, 0, CellValue.Start);
-    g.setCellValue(4, 9, CellValue.End);
+    g.setCellValue(7, 9, CellValue.End);
+
+    g.setCellValue(5, 8, CellValue.Chosen);
+    g.setCellValue(6, 8, CellValue.Chosen);
+    g.setCellValue(7, 8, CellValue.Chosen);
 
     setGrid(g);
   }, [grid]);
@@ -27,19 +39,33 @@ export function Maze() {
         break;
 
       case CellValue.Wall:
-        bgColor = "bg-red-300";
-        break;
-
-      case CellValue.Start:
         bgColor = "bg-cyan-400";
         break;
 
+      case CellValue.Start:
+        bgColor = "bg-rose-700";
+        break;
+
       case CellValue.End:
-        bgColor = "bg-neutral-400";
+        bgColor = "bg-fuchsia-900";
+        break;
+
+      case CellValue.Chosen:
+        bgColor = "bg-emerald-400";
         break;
     }
 
-    return <td class={`w-10 h-10 ${bgColor} border-2 border-slate-200`} key={col}></td>;
+    return (
+      <td
+        onClick={() => changeCellType(`${row},${col}`)}
+        class={`w-10 h-10 cursor-pointer ${bgColor} border-2 border-slate-200`}
+        key={`${row},${col}`}></td>
+    );
+  }
+
+  function changeCellType(key: string) {
+    const [row, col] = key.split(",");
+    console.log(row, col);
   }
 
   return (

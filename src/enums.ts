@@ -3,4 +3,5 @@ export enum CellValue {
   Wall,
   Start,
   End,
+  Chosen,
 }
