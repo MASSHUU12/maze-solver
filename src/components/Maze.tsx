@@ -2,6 +2,7 @@ import { Grid } from "@/lib/grid";
 import { CellValue } from "@/enums";
 import { useEffect } from "preact/hooks";
 import { useGridStore } from "@/store/gridStore";
+import { CellColor } from "@/helpers/cellColor";
 
 export function Maze() {
   // const [grid, setGrid] = useState(new Grid(10));
@@ -33,23 +34,23 @@ export function Maze() {
 
   function createCell(row: number, col: number) {
     const val: CellValue = gridStore.grid.getCellValue(row, col) as number;
-    let bgColor: string = "";
+    let bgColor: CellColor = CellColor.Passage;
 
     switch (val) {
       case CellValue.Passage:
-        bgColor = "bg-slate-100";
+        bgColor = CellColor.Passage;
         break;
 
       case CellValue.Wall:
-        bgColor = "bg-cyan-400";
+        bgColor = CellColor.Wall;
         break;
 
       case CellValue.Start:
-        bgColor = "bg-rose-700";
+        bgColor = CellColor.Start;
         break;
 
       case CellValue.End:
-        bgColor = "bg-fuchsia-900";
+        bgColor = CellColor.End;
         break;
 
       case CellValue.Chosen:
