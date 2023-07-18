@@ -1,11 +1,12 @@
-import { CellColor } from "@/helpers/cellColor";
+import { resetGridStore } from "@/store/gridStore";
 import { ToolbarItem } from "./ToolbarItem";
 import { Button } from "./common/Button";
-import { resetGridStore } from "@/store/gridStore";
+import { Toolbar } from "./common/Toolbar";
+import { CellColor } from "@/helpers/cellColor";
 
-export function Toolbar() {
+export function TypePicker() {
   return (
-    <section class="flex flex-col gap-2">
+    <Toolbar>
       <ToolbarItem color={CellColor.Passage} name="Passage" />
       <ToolbarItem color={CellColor.Wall} name="Wall" />
       <ToolbarItem color={CellColor.Start} name="Start" />
@@ -15,6 +16,6 @@ export function Toolbar() {
       <Button action={resetGridStore}>
         <span>Reset maze</span>
       </Button>
-    </section>
+    </Toolbar>
   );
 }
