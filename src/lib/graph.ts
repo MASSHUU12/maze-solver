@@ -3,21 +3,21 @@ import { Grid } from "./grid";
 import { Node } from "./node";
 
 export interface IGraph {
-  nodes: Node[];
+  nodes: Map<string, Node>;
   addNode(node: Node): void;
   addEdge(node1: Node, node2: Node): void;
   findNode(row: number, col: number): Node | null;
 }
 
 export class Graph implements IGraph {
-  nodes: Node[];
+  nodes: Map<string, Node>;
 
   constructor() {
-    this.nodes = [];
+    this.nodes = new Map<string, Node>();
   }
 
   public addNode(node: Node): void {
-    this.nodes.push(node);
+    this.nodes.set(`${node.row},${node.col}`, node);
   }
 
   public addEdge(node1: Node, node2: Node): void {
@@ -26,7 +26,8 @@ export class Graph implements IGraph {
   }
 
   public findNode(row: number, col: number): Node | null {
-    return this.nodes.find(node => node.row === row && node.col === col) ?? null;
+    const key = `${row},${col}`;
+    return this.nodes.get(key) ?? null;
   }
 }
 
