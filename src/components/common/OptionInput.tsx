@@ -6,9 +6,11 @@ type Props = {
   option: string;
   type?: HTMLInputElement["type"];
   placeholder?: string;
+  min?: number;
+  max?: number;
 };
 
-export function OptionInput({ label, type = "text", placeholder = "", option }: Props) {
+export function OptionInput({ label, type = "text", placeholder = "", option, min = 0, max = 64 }: Props) {
   const options = useSnapshot(optionsStore.options);
 
   return (
@@ -21,6 +23,8 @@ export function OptionInput({ label, type = "text", placeholder = "", option }: 
           placeholder={placeholder}
           value={options[option]}
           onInput={e => (optionsStore.options[option] = (e.target as HTMLInputElement).value)}
+          min={min}
+          max={max}
         />
       </label>
     </>

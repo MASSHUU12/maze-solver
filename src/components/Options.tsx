@@ -29,7 +29,7 @@ export function Options() {
             e.preventDefault();
             apply();
           }}>
-          <OptionInput option="gridSize" label="Grid size" type="number" placeholder="Grid size" />
+          <OptionInput option="gridSize" label="Grid size" type="number" placeholder="Grid size" min={2} />
           <Button action={apply}>
             <span>Apply</span>
           </Button>
