@@ -1,14 +1,16 @@
-import { StateUpdater } from "preact/hooks";
+import { optionsStore } from "@/store/optionsStore";
+import { useSnapshot } from "valtio";
 
 type Props = {
   label: string;
+  option: string;
   type?: HTMLInputElement["type"];
   placeholder?: string;
-  state: string | number | string[] | undefined;
-  stateUpdater: StateUpdater<string>;
 };
 
-export function OptionInput({ label, type = "text", placeholder = "", state, stateUpdater }: Props) {
+export function OptionInput({ label, type = "text", placeholder = "", option }: Props) {
+  const options = useSnapshot(optionsStore.options);
+
   return (
     <>
       <label class="flex flex-col">
@@ -17,8 +19,8 @@ export function OptionInput({ label, type = "text", placeholder = "", state, sta
           class="bg-slate-200 p-1 rounded-md"
           type={type}
           placeholder={placeholder}
-          value={state}
-          onInput={e => stateUpdater((e.target as HTMLInputElement).value)}
+          value={options[option]}
+          onInput={e => (optionsStore.options[option] = (e.target as HTMLInputElement).value)}
         />
       </label>
     </>

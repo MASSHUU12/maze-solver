@@ -1,9 +1,14 @@
 import { proxy } from "valtio";
 
 interface OptionsStore {
-  gridSize: number;
+  options: {
+    [key: string]: string | number;
+    gridSize: number;
+  };
 }
 
 export const optionsStore = proxy<OptionsStore>({
-  gridSize: 25,
+  options: {
+    gridSize: 25,
+  },
 });
