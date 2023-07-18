@@ -1,0 +1,21 @@
+import { ComponentChildren, toChildArray } from "preact";
+
+type Props = {
+  action: () => unknown;
+  children: ComponentChildren[] | ComponentChildren;
+};
+
+export function Button({ action, children }: Props) {
+  const childrenArray = toChildArray(children);
+
+  return (
+    <button
+      onClick={action}
+      class={
+        "flex flex-row items-center gap-2 p-3 border-2 border-gray-300 rounded-md " +
+        `${childrenArray.length > 1 ? "justify-start" : "justify-center"}`
+      }>
+      {children}
+    </button>
+  );
+}

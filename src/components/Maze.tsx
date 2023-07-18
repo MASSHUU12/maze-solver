@@ -1,88 +1,49 @@
-import { Grid } from "@/lib/grid";
+import { gridStore } from "@/store/gridStore";
+import { useSnapshot } from "valtio";
+import { MazeCell } from "./MazeCell";
+import { useEffect } from "preact/hooks";
 import { CellValue } from "@/enums";
-import { useEffect, useState } from "preact/hooks";
 
 export function Maze() {
-  const [grid, setGrid] = useState(new Grid(10));
+  const grid = useSnapshot(gridStore.grid);
 
+  // Test maze
   useEffect(() => {
-    // Setup basic grid for testing
-    const g = new Grid(10);
-
     for (let i = 0; i < 10; i++) {
-      g.setCellValue(0, i, CellValue.Wall);
-      g.setCellValue(i, 0, CellValue.Wall);
-      g.setCellValue(9, i, CellValue.Wall);
-      g.setCellValue(i, 9, CellValue.Wall);
-      g.setCellValue(i, 5, CellValue.Wall);
-
-      g.setCellValue(4, i - 1, CellValue.Chosen);
+      gridStore.grid.setCellValue(i, 0, CellValue.Wall);
+      gridStore.grid.setCellValue(0, i, CellValue.Wall);
+      gridStore.grid.setCellValue(i, 9, CellValue.Wall);
+      gridStore.grid.setCellValue(9, i, CellValue.Wall);
+      gridStore.grid.setCellValue(5, i, CellValue.Wall);
+      gridStore.grid.setCellValue(i - 1, 4, CellValue.Chosen);
     }
 
-    g.setCellValue(4, 0, CellValue.Start);
-    g.setCellValue(7, 9, CellValue.End);
+    gridStore.grid.setCellValue(0, 4, CellValue.Start);
+    gridStore.grid.setCellValue(9, 7, CellValue.End);
+    gridStore.grid.setCellValue(8, 5, CellValue.Chosen);
+    gridStore.grid.setCellValue(8, 6, CellValue.Chosen);
+    gridStore.grid.setCellValue(8, 7, CellValue.Chosen);
+  }, []);
 
-    g.setCellValue(5, 8, CellValue.Chosen);
-    g.setCellValue(6, 8, CellValue.Chosen);
-    g.setCellValue(7, 8, CellValue.Chosen);
+  function renderGrid() {
+    const rows = [];
 
-    setGrid(g);
-  }, [grid]);
+    for (let i = 0; i < grid.size; i++) {
+      const cols = [];
 
-  function createCell(row: number, col: number) {
-    const val: CellValue = grid.getCellValue(row, col) as number;
-    let bgColor: string = "";
+      for (let j = 0; j < grid.size; j++) {
+        cols.push(<MazeCell col={i} row={j} />);
+      }
 
-    switch (val) {
-      case CellValue.Passage:
-        bgColor = "bg-slate-100";
-        break;
-
-      case CellValue.Wall:
-        bgColor = "bg-cyan-400";
-        break;
-
-      case CellValue.Start:
-        bgColor = "bg-rose-700";
-        break;
-
-      case CellValue.End:
-        bgColor = "bg-fuchsia-900";
-        break;
-
-      case CellValue.Chosen:
-        bgColor = "bg-emerald-400";
-        break;
+      rows.push(<tr key={i}>{cols}</tr>);
     }
 
-    return (
-      <td
-        onClick={() => changeCellType(`${row},${col}`)}
-        class={`w-10 h-10 cursor-pointer ${bgColor} border-2 border-slate-200`}
-        key={`${row},${col}`}></td>
-    );
-  }
-
-  function changeCellType(key: string) {
-    const [row, col] = key.split(",");
-    console.log(row, col);
+    return rows;
   }
 
   return (
     <table class="w-fit border-collapse border-2 border-slate-300">
-      <tbody>
-        {Array(grid.size)
-          .fill(null)
-          .map((_, row) => (
-            <tr key={row}>
-              {Array(grid.size)
-                .fill(null)
-                .map((_, col) => {
-                  return createCell(row, col);
-                })}
-            </tr>
-          ))}
-      </tbody>
+      <tbody>{renderGrid()}</tbody>
     </table>
   );
 }
