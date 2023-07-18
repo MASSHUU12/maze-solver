@@ -1,7 +1,7 @@
 import { CellValue } from "@/enums";
 import { Node } from "./node";
 
-export function bfs(root: Node): Node | null {
+export function bfs(root: Node): Node[] | null {
   const queue: Node[] = [];
 
   root.explored = true;
@@ -10,7 +10,7 @@ export function bfs(root: Node): Node | null {
   while (queue.length > 0) {
     const v = queue.shift();
 
-    if (v?.value === CellValue.End) return v;
+    if (v?.value === CellValue.End) return reconstructPath(v);
 
     const adjacentNodes = v?.adjacentNodes;
 
@@ -19,6 +19,7 @@ export function bfs(root: Node): Node | null {
     adjacentNodes.forEach(node => {
       if (!node.explored) {
         node.explored = true;
+        node.parent = v ?? null;
 
         if (node.value === CellValue.Passage) node.value = CellValue.Chosen;
 
@@ -28,4 +29,16 @@ export function bfs(root: Node): Node | null {
   }
 
   return null;
+}
+
+function reconstructPath(node: Node): Node[] {
+  const path: Node[] = [];
+  let current: Node | null = node;
+
+  while (current != null) {
+    path.unshift(current);
+    current = current.parent;
+  }
+
+  return path;
 }

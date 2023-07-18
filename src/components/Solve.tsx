@@ -9,10 +9,13 @@ export function Solve() {
     const graph = convertGridToGraph(gridStore.grid);
     const start = findStartNode(graph);
 
-    // console.log(graph);
-    // console.log(start);
+    if (start === null) return;
 
-    if (start !== null) console.log(bfs(start));
+    const path = bfs(start);
+
+    path?.forEach(node => {
+      gridStore.grid.setCellValue(node.row, node.col, node.value);
+    });
   }
 
   return (
