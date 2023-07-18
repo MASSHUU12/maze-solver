@@ -12,7 +12,7 @@ export function Button({ action, children }: Props) {
     <button
       onClick={action}
       class={
-        "flex flex-row items-center gap-2 p-3 border-2 border-gray-300 rounded-md " +
+        "flex flex-row items-center gap-2 py-3 px-5 border-2 border-gray-300 rounded-md " +
         `${childrenArray.length > 1 ? "justify-start" : "justify-center"}`
       }>
       {children}
