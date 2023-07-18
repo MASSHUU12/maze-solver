@@ -10,6 +10,7 @@ export class Node {
     col: number;
   }[];
   public explored: boolean;
+  public parent: Node | null;
 
   constructor(value: CellValue, row: number, col: number) {
     this.value = value;
@@ -18,5 +19,6 @@ export class Node {
     this.adjacentNodes = [];
     this.neighbors = [];
     this.explored = false;
+    this.parent = null;
   }
 }
