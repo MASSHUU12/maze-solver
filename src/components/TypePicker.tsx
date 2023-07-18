@@ -1,5 +1,5 @@
 import { resetGridStore } from "@/store/gridStore";
-import { ToolbarItem } from "./ToolbarItem";
+import { ToolbarItem } from "./TypeItem";
 import { Button } from "./common/Button";
 import { Toolbar } from "./common/Toolbar";
 import { CellColor } from "@/helpers/cellColor";
