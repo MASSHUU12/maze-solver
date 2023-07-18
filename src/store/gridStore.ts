@@ -11,3 +11,8 @@ export const gridStore = proxy<GridStore>({
   grid: new Grid(10),
   selectedColor: CellColor.Passage,
 });
+
+export function resetGridStore() {
+  gridStore.grid = new Grid(10);
+  gridStore.selectedColor = CellColor.Passage;
+}
