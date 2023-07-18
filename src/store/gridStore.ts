@@ -9,7 +9,7 @@ interface GridStore {
 }
 
 export const gridStore = proxy<GridStore>({
-  grid: new Grid(10),
+  grid: new Grid(25),
   selectedColor: CellColor.Passage,
 });
 
