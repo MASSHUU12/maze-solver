@@ -1,3 +1,4 @@
+import { Clean } from "./components/Clean";
 import { Maze } from "./components/Maze";
 import { Options } from "./components/Options";
 import { Reset } from "./components/Reset";
@@ -17,6 +18,7 @@ export function App() {
       </section>
       <section class="flex justify-center mt-5 gap-5">
         <Solve />
+        <Clean />
         <Reset />
       </section>
     </>
