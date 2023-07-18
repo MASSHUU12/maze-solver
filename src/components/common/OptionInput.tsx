@@ -8,7 +8,7 @@ type Props = {
   stateUpdater: StateUpdater<string>;
 };
 
-export function Input({ label, type = "text", placeholder = "", state, stateUpdater }: Props) {
+export function OptionInput({ label, type = "text", placeholder = "", state, stateUpdater }: Props) {
   return (
     <>
       <label class="flex flex-col">

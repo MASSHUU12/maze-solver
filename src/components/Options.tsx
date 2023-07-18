@@ -1,12 +1,16 @@
 import { gridStore } from "@/store/gridStore";
-import { Input } from "./common/Input";
+import { OptionInput } from "./common/OptionInput";
 import { Toolbar } from "./common/Toolbar";
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import { Button } from "./common/Button";
 import { Grid } from "@/lib/grid";
 
 export function Options() {
   const [gridSize, setGridSize] = useState(`${gridStore.grid.size}`);
+
+  useEffect(() => {
+    apply();
+  }, []);
 
   function apply() {
     const grid = new Grid(parseInt(gridSize) ?? gridStore.grid.size);
@@ -27,7 +31,13 @@ export function Options() {
             e.preventDefault();
             apply();
           }}>
-          <Input label="Grid size" type="number" state={gridSize} stateUpdater={setGridSize} placeholder="Grid size" />
+          <OptionInput
+            label="Grid size"
+            type="number"
+            state={gridSize}
+            stateUpdater={setGridSize}
+            placeholder="Grid size"
+          />
           <Button action={apply}>
             <span>Apply</span>
           </Button>
