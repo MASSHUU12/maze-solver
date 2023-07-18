@@ -27,7 +27,7 @@ export function Options() {
             e.preventDefault();
             apply();
           }}>
-          <Input type="number" state={gridSize} stateUpdater={setGridSize} placeholder="Grid size" />
+          <Input label="Grid size" type="number" state={gridSize} stateUpdater={setGridSize} placeholder="Grid size" />
           <Button action={apply}>
             <span>Apply</span>
           </Button>
