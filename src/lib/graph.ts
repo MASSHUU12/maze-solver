@@ -44,33 +44,39 @@ export function convertGridToGraph(grid: Grid): Graph {
       const node = new Node(cellValue, row, col);
       graph.addNode(node);
 
-      const adjacentCells = getAdjacentCells(row, col);
-      adjacentCells.forEach(cell => {
-        const value = grid.getCellValue(cell.row, cell.column);
-
-        if (value === CellValue.Passage || value === CellValue.Start || value === CellValue.End) {
-          const adjacentNode = graph.findNode(cell.row, cell.column);
-
-          if (adjacentNode) graph.addEdge(node, adjacentNode);
-          else {
-            const newNode = new Node(value, cell.row, cell.column);
-            graph.addNode(newNode);
-            graph.addEdge(node, newNode);
-            node.adjacentNodes.push(newNode);
-          }
-        }
-      });
+      node.neighbors = getNeighborCoordinates(row, col, size);
     }
   }
+
+  // Add edges between nodes
+  graph.nodes.forEach(node => {
+    node.neighbors.forEach(neighborCoordinates => {
+      const { row, col } = neighborCoordinates;
+      const neighborNode = graph.findNode(row, col);
+
+      if (neighborNode) {
+        graph.addEdge(node, neighborNode);
+      }
+    });
+  });
 
   return graph;
 }
 
-function getAdjacentCells(row: number, column: number) {
-  return [
-    { row: row - 1, column }, // Top cell
-    { row: row + 1, column }, // Bottom cell
-    { row, column: column - 1 }, // Left cell
-    { row, column: column + 1 }, // Right cell
-  ];
+function getNeighborCoordinates(
+  row: number,
+  col: number,
+  size: number,
+): {
+  row: number;
+  col: number;
+}[] {
+  const neighbors = [];
+
+  if (row - 1 >= 0) neighbors.push({ row: row - 1, col });
+  if (row + 1 < size) neighbors.push({ row: row + 1, col });
+  if (col - 1 >= 0) neighbors.push({ row, col: col - 1 });
+  if (col + 1 < size) neighbors.push({ row, col: col + 1 });
+
+  return neighbors;
 }
