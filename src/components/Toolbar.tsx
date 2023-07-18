@@ -1,5 +1,7 @@
 import { CellColor } from "@/helpers/cellColor";
 import { ToolbarItem } from "./ToolbarItem";
+import { Button } from "./common/Button";
+import { resetGridStore } from "@/store/gridStore";
 
 export function Toolbar() {
   return (
@@ -9,6 +11,10 @@ export function Toolbar() {
       <ToolbarItem color={CellColor.Start} name="Start" />
       <ToolbarItem color={CellColor.End} name="End" />
       <ToolbarItem color={CellColor.Chosen} name="Chosen" />
+
+      <Button action={resetGridStore}>
+        <span>Reset maze</span>
+      </Button>
     </section>
   );
 }
