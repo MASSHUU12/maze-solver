@@ -1,10 +1,15 @@
 import { convertGridToGraph } from "@/lib/graph";
 import { Button } from "./common/Button";
 import { gridStore } from "@/store/gridStore";
+import { findStartNode } from "@/helpers/findStartNode";
 
 export function Solve() {
   function solve() {
-    console.log(convertGridToGraph(gridStore.grid));
+    const graph = convertGridToGraph(gridStore.grid);
+    const start = findStartNode(graph);
+
+    console.log(graph);
+    console.log(start);
   }
 
   return (
