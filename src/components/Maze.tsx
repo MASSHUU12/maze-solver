@@ -1,14 +1,10 @@
-import { CellValue } from "@/enums";
-import { CellColor } from "@/helpers/cellColor";
 import { gridStore } from "@/store/gridStore";
-import { subscribe } from "valtio";
+import { useSnapshot } from "valtio";
+import { MazeCell } from "./MazeCell";
 
 export function Maze() {
   // const [grid, setGrid] = useState(new Grid(10));
-
-  subscribe(gridStore, () => {
-    console.log("changed");
-  });
+  const grid = useSnapshot(gridStore.grid);
 
   // useEffect(() => {
   // Setup basic grid for testing
@@ -30,59 +26,14 @@ export function Maze() {
   //   console.log("a");
   // }, [gridStore]);
 
-  function createCell(row: number, col: number) {
-    const val: CellValue = gridStore.grid.getCellValue(row, col) as number;
-    let bgColor: string = CellColor.Passage.color;
-
-    switch (val) {
-      case CellValue.Passage:
-        bgColor = CellColor.Passage.color;
-        break;
-
-      case CellValue.Wall:
-        bgColor = CellColor.Wall.color;
-        break;
-
-      case CellValue.Start:
-        bgColor = CellColor.Start.color;
-        break;
-
-      case CellValue.End:
-        bgColor = CellColor.End.color;
-        break;
-
-      case CellValue.Chosen:
-        bgColor = CellColor.Chosen.color;
-        break;
-    }
-
-    return (
-      <td
-        onClick={() => changeCellType(`${row},${col}`)}
-        class={`w-10 h-10 cursor-pointer ${bgColor} border-2 border-slate-200`}
-        key={`${row},${col}`}></td>
-    );
-  }
-
-  function changeCellType(key: string) {
-    const [row, col] = key.split(",");
-    const currPos = [parseInt(row), parseInt(col)];
-
-    gridStore.selectedCell[0] = currPos[0];
-    gridStore.selectedCell[1] = currPos[1];
-    gridStore.grid.setCellValue(currPos[0], currPos[1], gridStore.selectedColor.value);
-
-    console.log(gridStore.grid.grid);
-  }
-
   function renderGrid() {
     const rows = [];
 
-    for (let i = 0; i < gridStore.grid.size; i++) {
+    for (let i = 0; i < grid.size; i++) {
       const cols = [];
 
-      for (let j = 0; j < gridStore.grid.size; j++) {
-        cols.push(createCell(i, j));
+      for (let j = 0; j < grid.size; j++) {
+        cols.push(<MazeCell col={i} row={j} />);
       }
 
       rows.push(<tr key={i}>{cols}</tr>);

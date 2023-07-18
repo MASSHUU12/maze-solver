@@ -9,8 +9,6 @@ interface Props {
 export function ToolbarItem({ color, name }: Props) {
   function setSelectedColor() {
     gridStore.selectedColor = color;
-
-    console.log(gridStore.selectedColor);
   }
 
   return (
