@@ -1,60 +1,58 @@
-import { Grid } from "@/lib/grid";
 import { CellValue } from "@/enums";
-import { useEffect } from "preact/hooks";
-import { useGridStore } from "@/store/gridStore";
 import { CellColor } from "@/helpers/cellColor";
+import { gridStore } from "@/store/gridStore";
+import { subscribe } from "valtio";
 
 export function Maze() {
   // const [grid, setGrid] = useState(new Grid(10));
-  const gridStore = useGridStore();
 
-  useEffect(() => {
-    // Setup basic grid for testing
-    const g = new Grid(10);
+  subscribe(gridStore, () => {
+    console.log("changed");
+  });
 
-    for (let i = 0; i < 10; i++) {
-      g.setCellValue(0, i, CellValue.Wall);
-      g.setCellValue(i, 0, CellValue.Wall);
-      g.setCellValue(9, i, CellValue.Wall);
-      g.setCellValue(i, 9, CellValue.Wall);
-      g.setCellValue(i, 5, CellValue.Wall);
-
-      g.setCellValue(4, i - 1, CellValue.Chosen);
-    }
-
-    g.setCellValue(4, 0, CellValue.Start);
-    g.setCellValue(7, 9, CellValue.End);
-
-    g.setCellValue(5, 8, CellValue.Chosen);
-    g.setCellValue(6, 8, CellValue.Chosen);
-    g.setCellValue(7, 8, CellValue.Chosen);
-
-    gridStore.grid = g;
-  }, [gridStore]);
+  // useEffect(() => {
+  // Setup basic grid for testing
+  // const g = new Grid(10);
+  // for (let i = 0; i < 10; i++) {
+  //   g.setCellValue(0, i, CellValue.Wall);
+  //   g.setCellValue(i, 0, CellValue.Wall);
+  //   g.setCellValue(9, i, CellValue.Wall);
+  //   g.setCellValue(i, 9, CellValue.Wall);
+  //   g.setCellValue(i, 5, CellValue.Wall);
+  //   g.setCellValue(4, i - 1, CellValue.Chosen);
+  // }
+  // g.setCellValue(4, 0, CellValue.Start);
+  // g.setCellValue(7, 9, CellValue.End);
+  // g.setCellValue(5, 8, CellValue.Chosen);
+  // g.setCellValue(6, 8, CellValue.Chosen);
+  // g.setCellValue(7, 8, CellValue.Chosen);
+  // gridStore.grid = g;
+  //   console.log("a");
+  // }, [gridStore]);
 
   function createCell(row: number, col: number) {
     const val: CellValue = gridStore.grid.getCellValue(row, col) as number;
-    let bgColor: CellColor = CellColor.Passage;
+    let bgColor: string = CellColor.Passage.color;
 
     switch (val) {
       case CellValue.Passage:
-        bgColor = CellColor.Passage;
+        bgColor = CellColor.Passage.color;
         break;
 
       case CellValue.Wall:
-        bgColor = CellColor.Wall;
+        bgColor = CellColor.Wall.color;
         break;
 
       case CellValue.Start:
-        bgColor = CellColor.Start;
+        bgColor = CellColor.Start.color;
         break;
 
       case CellValue.End:
-        bgColor = CellColor.End;
+        bgColor = CellColor.End.color;
         break;
 
       case CellValue.Chosen:
-        bgColor = CellColor.Chosen;
+        bgColor = CellColor.Chosen.color;
         break;
     }
 
@@ -70,26 +68,32 @@ export function Maze() {
     const [row, col] = key.split(",");
     const currPos = [parseInt(row), parseInt(col)];
 
-    gridStore.selectedCell = [currPos[0], currPos[1]];
+    gridStore.selectedCell[0] = currPos[0];
+    gridStore.selectedCell[1] = currPos[1];
+    gridStore.grid.setCellValue(currPos[0], currPos[1], gridStore.selectedColor.value);
 
-    console.log("Pos:", ...gridStore.selectedCell);
+    console.log(gridStore.grid.grid);
+  }
+
+  function renderGrid() {
+    const rows = [];
+
+    for (let i = 0; i < gridStore.grid.size; i++) {
+      const cols = [];
+
+      for (let j = 0; j < gridStore.grid.size; j++) {
+        cols.push(createCell(i, j));
+      }
+
+      rows.push(<tr key={i}>{cols}</tr>);
+    }
+
+    return rows;
   }
 
   return (
     <table class="w-fit border-collapse border-2 border-slate-300">
-      <tbody>
-        {Array(gridStore.grid.size)
-          .fill(null)
-          .map((_, row) => (
-            <tr key={row}>
-              {Array(gridStore.grid.size)
-                .fill(null)
-                .map((_, col) => {
-                  return createCell(row, col);
-                })}
-            </tr>
-          ))}
-      </tbody>
+      <tbody>{renderGrid()}</tbody>
     </table>
   );
 }
