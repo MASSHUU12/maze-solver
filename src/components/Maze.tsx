@@ -1,30 +1,29 @@
 import { gridStore } from "@/store/gridStore";
 import { useSnapshot } from "valtio";
 import { MazeCell } from "./MazeCell";
+import { useEffect } from "preact/hooks";
+import { CellValue } from "@/enums";
 
 export function Maze() {
-  // const [grid, setGrid] = useState(new Grid(10));
   const grid = useSnapshot(gridStore.grid);
 
-  // useEffect(() => {
-  // Setup basic grid for testing
-  // const g = new Grid(10);
-  // for (let i = 0; i < 10; i++) {
-  //   g.setCellValue(0, i, CellValue.Wall);
-  //   g.setCellValue(i, 0, CellValue.Wall);
-  //   g.setCellValue(9, i, CellValue.Wall);
-  //   g.setCellValue(i, 9, CellValue.Wall);
-  //   g.setCellValue(i, 5, CellValue.Wall);
-  //   g.setCellValue(4, i - 1, CellValue.Chosen);
-  // }
-  // g.setCellValue(4, 0, CellValue.Start);
-  // g.setCellValue(7, 9, CellValue.End);
-  // g.setCellValue(5, 8, CellValue.Chosen);
-  // g.setCellValue(6, 8, CellValue.Chosen);
-  // g.setCellValue(7, 8, CellValue.Chosen);
-  // gridStore.grid = g;
-  //   console.log("a");
-  // }, [gridStore]);
+  // Test maze
+  useEffect(() => {
+    for (let i = 0; i < 10; i++) {
+      gridStore.grid.setCellValue(i, 0, CellValue.Wall);
+      gridStore.grid.setCellValue(0, i, CellValue.Wall);
+      gridStore.grid.setCellValue(i, 9, CellValue.Wall);
+      gridStore.grid.setCellValue(9, i, CellValue.Wall);
+      gridStore.grid.setCellValue(5, i, CellValue.Wall);
+      gridStore.grid.setCellValue(i - 1, 4, CellValue.Chosen);
+    }
+
+    gridStore.grid.setCellValue(0, 4, CellValue.Start);
+    gridStore.grid.setCellValue(9, 7, CellValue.End);
+    gridStore.grid.setCellValue(8, 5, CellValue.Chosen);
+    gridStore.grid.setCellValue(8, 6, CellValue.Chosen);
+    gridStore.grid.setCellValue(8, 7, CellValue.Chosen);
+  }, []);
 
   function renderGrid() {
     const rows = [];
