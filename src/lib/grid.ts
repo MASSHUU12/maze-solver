@@ -33,7 +33,15 @@ export class Grid {
     return this._size;
   }
 
+  public set size(size: number) {
+    this._size = size;
+  }
+
   public get grid(): CellValue[] {
     return this._grid;
+  }
+
+  public set grid(grid: number[]) {
+    this._grid = grid;
   }
 }
