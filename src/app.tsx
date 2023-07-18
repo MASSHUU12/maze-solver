@@ -1,4 +1,5 @@
 import { Maze } from "./components/Maze";
+import { Reset } from "./components/Reset";
 import { Solve } from "./components/Solve";
 import { TypePicker } from "./components/TypePicker";
 
@@ -12,8 +13,9 @@ export function App() {
         <Maze />
         <TypePicker />
       </section>
-      <section class="flex justify-center mt-3">
+      <section class="flex justify-center mt-5 gap-5">
         <Solve />
+        <Reset />
       </section>
     </>
   );
