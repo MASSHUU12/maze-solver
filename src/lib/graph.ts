@@ -1,14 +1,38 @@
-import { CellValue } from "@/enums";
 import { Grid } from "./grid";
 import { Node } from "./node";
+import { CellValue } from "@/enums";
 
+/**
+ * Represents a graph interface.
+ */
 export interface IGraph {
   nodes: Map<string, Node>;
+  /**
+   * Adds a node to the graph.
+   *
+   * @param node - The node to add.
+   */
   addNode(node: Node): void;
+  /**
+   * Adds an edge between two nodes in the graph.
+   *
+   * @param node1 - The first node.
+   * @param node2 - The second node.
+   */
   addEdge(node1: Node, node2: Node): void;
+  /**
+   * Finds a node in the graph based on its coordinates.
+   *
+   * @param row - The row of the node.
+   * @param col - The column of the node.
+   * @returns The found node or null if not found.
+   */
   findNode(row: number, col: number): Node | null;
 }
 
+/**
+ * Represents a graph.
+ */
 export class Graph implements IGraph {
   nodes: Map<string, Node>;
 
@@ -31,6 +55,12 @@ export class Graph implements IGraph {
   }
 }
 
+/**
+ * Converts a grid to a graph.
+ *
+ * @param grid - The grid to convert.
+ * @returns The converted graph.
+ */
 export function convertGridToGraph(grid: Grid): Graph {
   const size = grid.size;
   const graph = new Graph();
@@ -63,6 +93,14 @@ export function convertGridToGraph(grid: Grid): Graph {
   return graph;
 }
 
+/**
+ * Returns the coordinates of neighboring nodes.
+ *
+ * @param row - The row of the current node.
+ * @param col - The column of the current node.
+ * @param size - The size of the grid.
+ * @returns An array of neighbor coordinates.
+ */
 function getNeighborCoordinates(
   row: number,
   col: number,
