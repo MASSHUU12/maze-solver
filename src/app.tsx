@@ -1,10 +1,15 @@
-import { Clean } from "./components/Clean";
 import { Maze } from "./components/Maze";
-import { Options } from "./components/Options";
+import { Clean } from "./components/Clean";
 import { Reset } from "./components/Reset";
 import { Solve } from "./components/Solve";
+import { Options } from "./components/Options";
 import { TypePicker } from "./components/TypePicker";
 
+/**
+ * The main App component.
+ *
+ * @returns {JSX.Element} The rendered App component.
+ */
 export function App() {
   return (
     <>

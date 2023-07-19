@@ -1,15 +1,26 @@
-import { CellValue } from "@/enums";
-import { CellColor } from "@/helpers/cellColor";
-import { gridStore } from "@/store/gridStore";
-import { useEffect, useRef, useState } from "preact/hooks";
+import { VNode } from "preact";
 import { useSnapshot } from "valtio";
+import { useEffect, useRef, useState } from "preact/hooks";
 
-interface Props {
+import { CellValue } from "@/enums";
+import { gridStore } from "@/store/gridStore";
+import { CellColor } from "@/helpers/cellColor";
+
+/**
+ * Props for the MazeCell component.
+ */
+type Props = {
   row: number;
   col: number;
-}
+};
 
-export function MazeCell({ row, col }: Props) {
+/**
+ * Represents a cell in the maze grid.
+ *
+ * @param {Props} props - The component props.
+ * @returns {VNode} The rendered MazeCell component.
+ */
+export function MazeCell({ row, col }: Props): VNode {
   const grid = useSnapshot(gridStore.grid);
   const value = grid.getCellValue(row, col);
   const [bgColor, setBgColor] = useState(CellColor.Passage.color);
@@ -45,7 +56,12 @@ export function MazeCell({ row, col }: Props) {
     td.current!.style.height = cellSize + "rem";
   }, [cellSize]);
 
-  function changeCellType(key: string) {
+  /**
+   * Changes the type of the cell when clicked.
+   *
+   * @param {string} key - The key representing the cell position (row, col).
+   */
+  function changeCellType(key: string): void {
     const [row, col] = key.split(",");
     const currPos = [parseInt(row), parseInt(col)];
 

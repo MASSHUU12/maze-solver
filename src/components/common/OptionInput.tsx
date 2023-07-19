@@ -1,5 +1,7 @@
-import { optionsStore } from "@/store/optionsStore";
+import { VNode } from "preact";
 import { useSnapshot } from "valtio";
+
+import { optionsStore } from "@/store/optionsStore";
 
 type Props = {
   label: string;
@@ -10,7 +12,13 @@ type Props = {
   max?: number;
 };
 
-export function OptionInput({ label, type = "text", placeholder = "", option, min = 0, max = 64 }: Props) {
+/**
+ * OptionInput component.
+ *
+ * @param {Props} props - The props for the component.
+ * @returns {VNode} The rendered component.
+ */
+export function OptionInput({ label, type = "text", placeholder = "", option, min = 0, max = 64 }: Props): VNode {
   const options = useSnapshot(optionsStore.options);
 
   return (

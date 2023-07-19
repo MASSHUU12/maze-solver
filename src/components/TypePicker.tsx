@@ -1,8 +1,15 @@
+import { VNode } from "preact";
+
 import { ToolbarItem } from "./TypeItem";
 import { Toolbar } from "./common/Toolbar";
 import { CellColor } from "@/helpers/cellColor";
 
-export function TypePicker() {
+/**
+ * Renders a type picker toolbar component.
+ *
+ * @returns {VNode} The rendered toolbar component.
+ */
+export function TypePicker(): VNode {
   return (
     <Toolbar>
       <ToolbarItem color={CellColor.Passage} name="Passage" />

@@ -1,11 +1,20 @@
+import { VNode } from "preact";
+
+import { bfs } from "@/lib/bfs";
 import { convertGridToGraph } from "@/lib/graph";
+
 import { Button } from "./common/Button";
 import { gridStore } from "@/store/gridStore";
 import { findStartNode } from "@/helpers/findStartNode";
-import { bfs } from "@/lib/bfs";
 
-export function Solve() {
-  function solve() {
+/**
+ * Component for solving a grid.
+ */
+export function Solve(): VNode {
+  /**
+   * Solves the grid by finding the path from the start node to the goal node.
+   */
+  function solve(): void {
     const graph = convertGridToGraph(gridStore.grid);
     const start = findStartNode(graph);
 

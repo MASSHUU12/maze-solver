@@ -1,23 +1,35 @@
-import { gridStore } from "@/store/gridStore";
-import { OptionInput } from "./common/OptionInput";
-import { Toolbar } from "./common/Toolbar";
+import { VNode } from "preact";
 import { useEffect } from "preact/hooks";
-import { Button } from "./common/Button";
+
 import { Grid } from "@/lib/grid";
+
+import { Button } from "./common/Button";
+import { Toolbar } from "./common/Toolbar";
+import { OptionInput } from "./common/OptionInput";
+
+import { gridStore } from "@/store/gridStore";
 import { optionsStore } from "@/store/optionsStore";
 
-export function Options() {
-  useEffect(() => {
-    apply();
-  }, []);
-
-  function apply() {
+/**
+ * Options component.
+ * @returns {VNode} The rendered Options component.
+ */
+export function Options(): VNode {
+  /**
+   * Applies the selected options.
+   * @returns {void}
+   */
+  function apply(): void {
     const size = optionsStore.options["gridSize"];
     const grid = new Grid(size);
 
     gridStore.grid.grid = grid.grid;
     gridStore.grid.size = size;
   }
+
+  useEffect(() => {
+    apply();
+  }, []);
 
   return (
     <section class="flex flex-col items-center gap-5">
