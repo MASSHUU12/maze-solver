@@ -1,8 +1,20 @@
-import { gridStore } from "@/store/gridStore";
-import { Button } from "./common/Button";
-import { CellValue } from "@/enums";
+import { VNode } from "preact";
 
-export function Clean() {
+import { CellValue } from "@/enums";
+import { Button } from "./common/Button";
+import { gridStore } from "@/store/gridStore";
+
+/**
+ * Renders a "Clean" button component.
+ *
+ * @returns {VNode} The rendered Clean button component.
+ */
+export function Clean(): VNode {
+  /**
+   * Cleans the grid by changing any cell with the value CellValue.Chosen to CellValue.Passage.
+   *
+   * @returns {void}
+   */
   function clean(): void {
     const size = gridStore.grid.grid.length;
 
