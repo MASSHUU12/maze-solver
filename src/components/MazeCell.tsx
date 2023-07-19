@@ -56,7 +56,7 @@ export function MazeCell({ row, col }: Props) {
     <td
       ref={td}
       onClick={() => changeCellType(`${row},${col}`)}
-      class={`cursor-pointer ${bgColor} border-2 border-slate-200`}
+      class={`cursor-pointer ${bgColor} border-2 border-slate-200 hover:brightness-90`}
       key={`${row},${col}`}></td>
   );
 }

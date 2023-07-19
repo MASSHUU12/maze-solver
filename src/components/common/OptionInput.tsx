@@ -18,7 +18,7 @@ export function OptionInput({ label, type = "text", placeholder = "", option, mi
       <label class="flex flex-col">
         <span class="text-slate-700 text-sm font-semibold">{label}</span>
         <input
-          class="bg-slate-200 p-1 rounded-md"
+          class="bg-slate-200 p-1 rounded-md hover:bg-slate-100 focus:bg-slate-100"
           type={type}
           placeholder={placeholder}
           value={options[option]}
