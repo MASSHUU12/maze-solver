@@ -1,11 +1,17 @@
-import { ComponentChildren, toChildArray } from "preact";
+import { ComponentChildren, VNode, toChildArray } from "preact";
 
 type Props = {
   action: () => unknown;
   children: ComponentChildren[] | ComponentChildren;
 };
 
-export function Button({ action, children }: Props) {
+/**
+ * Button component.
+ *
+ * @param {Props} props - The props for the Button component.
+ * @returns {VNode} The rendered Button component.
+ */
+export function Button({ action, children }: Props): VNode {
   const childrenArray = toChildArray(children);
 
   return (
