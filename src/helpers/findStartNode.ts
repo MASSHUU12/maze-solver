@@ -1,7 +1,14 @@
 import { CellValue } from "@/enums";
-import { Graph } from "@/lib/graph";
-import { Node } from "@/lib/node";
 
+import { Node } from "@/lib/node";
+import { Graph } from "@/lib/graph";
+
+/**
+ * Finds the start node in a given graph.
+ *
+ * @param {Graph} graph - The graph to search for the start node.
+ * @returns {Node | null} - The start node if found, or null if not found.
+ */
 export function findStartNode(graph: Graph): Node | null {
   let result: Node | null = null;
 
