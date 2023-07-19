@@ -15,15 +15,11 @@ export function Maze() {
       gridStore.grid.setCellValue(i, 9, CellValue.Wall);
       gridStore.grid.setCellValue(9, i, CellValue.Wall);
       gridStore.grid.setCellValue(5, i, CellValue.Wall);
-      // gridStore.grid.setCellValue(i - 1, 4, CellValue.Chosen);
     }
 
     gridStore.grid.setCellValue(0, 4, CellValue.Start);
     gridStore.grid.setCellValue(9, 7, CellValue.End);
     gridStore.grid.setCellValue(5, 6, CellValue.Passage);
-    // gridStore.grid.setCellValue(8, 5, CellValue.Chosen);
-    // gridStore.grid.setCellValue(8, 6, CellValue.Chosen);
-    // gridStore.grid.setCellValue(8, 7, CellValue.Chosen);
   }, []);
 
   function renderGrid() {
@@ -33,7 +29,7 @@ export function Maze() {
       const cols = [];
 
       for (let j = 0; j < grid.size; j++) {
-        cols.push(<MazeCell col={i} row={j} />);
+        cols.push(<MazeCell col={i} row={j} key={`${i},${j}`} />);
       }
 
       rows.push(<tr key={i}>{cols}</tr>);

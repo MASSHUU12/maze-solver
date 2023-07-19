@@ -1,7 +1,7 @@
 import { CellValue } from "@/enums";
 import { CellColor } from "@/helpers/cellColor";
 import { gridStore } from "@/store/gridStore";
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
 import { useSnapshot } from "valtio";
 
 interface Props {
@@ -13,6 +13,8 @@ export function MazeCell({ row, col }: Props) {
   const grid = useSnapshot(gridStore.grid);
   const value = grid.getCellValue(row, col);
   const [bgColor, setBgColor] = useState(CellColor.Passage.color);
+  const [cellSize] = useState(30 / grid.size);
+  const td = useRef<HTMLTableCellElement>(null);
 
   useEffect(() => {
     switch (value) {
@@ -38,6 +40,11 @@ export function MazeCell({ row, col }: Props) {
     }
   }, [value, bgColor]);
 
+  useEffect(() => {
+    td.current!.style.width = cellSize + "rem";
+    td.current!.style.height = cellSize + "rem";
+  }, [cellSize]);
+
   function changeCellType(key: string) {
     const [row, col] = key.split(",");
     const currPos = [parseInt(row), parseInt(col)];
@@ -47,8 +54,9 @@ export function MazeCell({ row, col }: Props) {
 
   return (
     <td
+      ref={td}
       onClick={() => changeCellType(`${row},${col}`)}
-      class={`w-10 h-10 cursor-pointer ${bgColor} border-2 border-slate-200`}
+      class={`cursor-pointer ${bgColor} border-2 border-slate-200 hover:brightness-90`}
       key={`${row},${col}`}></td>
   );
 }

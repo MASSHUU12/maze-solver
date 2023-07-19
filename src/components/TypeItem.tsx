@@ -14,7 +14,7 @@ export function ToolbarItem({ color, name }: Props) {
 
   return (
     <Button action={setSelectedColor}>
-      <div class={`w-8 h-8 rounded-md border-2 border-gray-300 ${color.color}`}></div>
+      <div class={`w-6 h-6 rounded-md border-2 border-gray-300 ${color.color}`}></div>
       <span>{name}</span>
     </Button>
   );
