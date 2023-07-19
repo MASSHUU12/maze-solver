@@ -6,7 +6,7 @@ import { resetGridStore } from "@/store/gridStore";
 /**
  * Reset component.
  *
- * @returns {JSX.Element} The reset button component.
+ * @returns {VNode} The reset button component.
  */
 export function Reset(): VNode {
   return (

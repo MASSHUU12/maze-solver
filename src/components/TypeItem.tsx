@@ -20,7 +20,7 @@ type Props = {
  * ToolbarItem component.
  *
  * @param {Props} props - The props for the ToolbarItem component.
- * @returns {JSX.Element} The rendered ToolbarItem component.
+ * @returns {VNode} The rendered ToolbarItem component.
  */
 export function ToolbarItem({ color, name }: Props): VNode {
   /**
