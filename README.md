@@ -1,5 +1,8 @@
 <div align="center">
-	<h3>Maze Solver</h1>
+	<h3>Maze Solver</h3>
+  <a href="https://github.com/MASSHUU12/maze-solver/actions/workflows/deploy.yml">
+    <img src="https://github.com/MASSHUU12/maze-solver/actions/workflows/deploy.yml/badge.svg" />
+  </a>
 	<p>Create a maze and let the computer solve it!</p>
 </div>
 
