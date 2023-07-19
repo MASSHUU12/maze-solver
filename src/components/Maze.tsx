@@ -1,10 +1,17 @@
-import { gridStore } from "@/store/gridStore";
+import { VNode } from "preact";
 import { useSnapshot } from "valtio";
-import { MazeCell } from "./MazeCell";
 import { useEffect } from "preact/hooks";
-import { CellValue } from "@/enums";
 
-export function Maze() {
+import { CellValue } from "@/enums";
+import { MazeCell } from "./MazeCell";
+import { gridStore } from "@/store/gridStore";
+
+/**
+ * Renders a maze grid using Preact components.
+ *
+ * @returns {VNode} The rendered Maze component.
+ */
+export function Maze(): VNode {
   const grid = useSnapshot(gridStore.grid);
 
   // Test maze
@@ -22,7 +29,12 @@ export function Maze() {
     gridStore.grid.setCellValue(5, 6, CellValue.Passage);
   }, []);
 
-  function renderGrid() {
+  /**
+   * Renders the grid cells.
+   *
+   * @returns {VNode[]} An array of VNode elements representing the grid cells.
+   */
+  function renderGrid(): VNode[] {
     const rows = [];
 
     for (let i = 0; i < grid.size; i++) {
