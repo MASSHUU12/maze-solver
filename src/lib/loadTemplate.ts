@@ -18,25 +18,28 @@ export function loadTemplate(t: TemplateInfo): void {
   const [endX, endY] = t.end.split(":");
   gridStore.grid.setCellValue(parseInt(endX), parseInt(endY), CellValue.End);
 
-  for (let i = 0; i < t.walls.length; i++) {
-    const wallCoordinates = t.walls[i].match(/(\d+)-?(\d*):(\d+)-?(\d*)/);
+  for (const wallCoord of t.walls) {
+    const [xCoords, yCoords] = wallCoord.split(":");
 
-    if (wallCoordinates) {
-      const [, startXRange, endXRange, startYRange, endYRange] = wallCoordinates;
-      const startXStart = parseInt(startXRange);
-      const startXEnd = endXRange ? parseInt(endXRange) : startXStart;
-      const startYStart = parseInt(startYRange);
-      const startYEnd = endYRange ? parseInt(endYRange) : startYStart;
+    const xRanges = xCoords.split(",");
+    const yRanges = yCoords.split(",");
 
-      for (let y = startYStart; y <= startYEnd; y++) {
-        for (let x = startXStart; x <= startXEnd; x++) {
-          gridStore.grid.setCellValue(y, x, CellValue.Wall);
+    for (const xRange of xRanges) {
+      const xRangeParts = xRange.split("-");
+      const startXStart = parseInt(xRangeParts[0]);
+      const startXEnd = xRangeParts[1] ? parseInt(xRangeParts[1]) : startXStart;
+
+      for (const yRange of yRanges) {
+        const yRangeParts = yRange.split("-");
+        const startYStart = parseInt(yRangeParts[0]);
+        const startYEnd = yRangeParts[1] ? parseInt(yRangeParts[1]) : startYStart;
+
+        for (let y = startYStart; y <= startYEnd; y++) {
+          for (let x = startXStart; x <= startXEnd; x++) {
+            gridStore.grid.setCellValue(y, x, CellValue.Wall);
+          }
         }
       }
-    } else {
-      // Handle single coordinate
-      const [x, y] = t.walls[i].split(":");
-      gridStore.grid.setCellValue(parseInt(y), parseInt(x), CellValue.Wall);
     }
   }
 }
