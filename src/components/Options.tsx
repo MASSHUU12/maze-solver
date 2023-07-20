@@ -42,6 +42,7 @@ export function Options(): VNode {
     for (const t of templates) {
       if (t.name === template) {
         loadTemplate(t);
+        statusStore.status = `Loaded template: ${template}.`;
         break;
       }
     }
