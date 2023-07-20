@@ -43,7 +43,7 @@ function setWallCoordinates(wallCoord: string): void {
 function setWallCells(startX: number, endX: number, startY: number, endY: number): void {
   for (let y = startY; y <= endY; y++) {
     for (let x = startX; x <= endX; x++) {
-      gridStore.grid.setCellValue(y, x, CellValue.Wall);
+      gridStore.grid.setCellValue(x, y, CellValue.Wall);
     }
   }
 }
