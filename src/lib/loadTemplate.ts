@@ -12,32 +12,36 @@ type TemplateInfo = {
 export function loadTemplate(t: TemplateInfo): void {
   resizeGrid(t.size);
 
-  const [startX, startY] = t.start.split(":");
-  gridStore.grid.setCellValue(parseInt(startX), parseInt(startY), CellValue.Start);
+  let x = parseInt(t.start.split(":")[0]);
+  let y = parseInt(t.start.split(":")[1]);
+  gridStore.grid.setCellValue(x, y, CellValue.Start);
 
-  const [endX, endY] = t.end.split(":");
-  gridStore.grid.setCellValue(parseInt(endX), parseInt(endY), CellValue.End);
+  x = parseInt(t.end.split(":")[0]);
+  y = parseInt(t.end.split(":")[1]);
+  gridStore.grid.setCellValue(x, y, CellValue.End);
 
   for (const wallCoord of t.walls) {
     const [xCoords, yCoords] = wallCoord.split(":");
+    setWallCoordinates(xCoords, yCoords);
+  }
+}
 
-    const xRanges = xCoords.split(",");
-    const yRanges = yCoords.split(",");
+function setWallCoordinates(xCoords: string, yCoords: string): void {
+  const parseRange = (range: string): { start: number; end: number } => {
+    const rangeParts = range.split("-");
+    const start = parseInt(rangeParts[0]);
+    const end = rangeParts.length > 1 ? parseInt(rangeParts[1]) : start;
+    return { start, end };
+  };
 
-    for (const xRange of xRanges) {
-      const xRangeParts = xRange.split("-");
-      const startXStart = parseInt(xRangeParts[0]);
-      const startXEnd = xRangeParts[1] ? parseInt(xRangeParts[1]) : startXStart;
+  const xRanges = xCoords.split(",").map(parseRange);
+  const yRanges = yCoords.split(",").map(parseRange);
 
-      for (const yRange of yRanges) {
-        const yRangeParts = yRange.split("-");
-        const startYStart = parseInt(yRangeParts[0]);
-        const startYEnd = yRangeParts[1] ? parseInt(yRangeParts[1]) : startYStart;
-
-        for (let y = startYStart; y <= startYEnd; y++) {
-          for (let x = startXStart; x <= startXEnd; x++) {
-            gridStore.grid.setCellValue(y, x, CellValue.Wall);
-          }
+  for (const { start: startXStart, end: startXEnd } of xRanges) {
+    for (const { start: startYStart, end: startYEnd } of yRanges) {
+      for (let y = startYStart; y <= startYEnd; y++) {
+        for (let x = startXStart; x <= startXEnd; x++) {
+          gridStore.grid.setCellValue(y, x, CellValue.Wall);
         }
       }
     }
