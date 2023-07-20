@@ -2,6 +2,7 @@ import { proxy } from "valtio";
 
 import { Grid } from "@/lib/grid";
 import { CellValue } from "@/enums";
+import { statusStore } from "./statusStore";
 import { CellColor, cellColor } from "@/helpers/cellColor";
 
 /**
@@ -34,4 +35,6 @@ export function resetGridStore() {
   for (let i = 0; i < size * size; i++) {
     gridStore.grid.grid[i] = CellValue.Passage;
   }
+
+  statusStore.status = "The board has been reset.";
 }

@@ -15,9 +15,9 @@ interface OptionsStore {
 /**
  * The proxy object for the options store.
  *
- * @type {GridStore}
+ * @type {OptionsStore}
  */
-export const optionsStore = proxy<OptionsStore>({
+export const optionsStore: OptionsStore = proxy<OptionsStore>({
   options: {
     gridSize: 25,
   },
