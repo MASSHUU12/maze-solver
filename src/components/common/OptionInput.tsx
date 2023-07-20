@@ -2,6 +2,7 @@ import { VNode } from "preact";
 import { useSnapshot } from "valtio";
 
 import { optionsStore } from "@/store/optionsStore";
+import { Label } from "./Label";
 
 type Props = {
   label: string;
@@ -22,19 +23,16 @@ export function OptionInput({ label, type = "text", placeholder = "", option, mi
   const options = useSnapshot(optionsStore.options);
 
   return (
-    <>
-      <label class="flex flex-col">
-        <span class="text-slate-700 text-sm font-semibold">{label}</span>
-        <input
-          class="bg-slate-200 p-1 rounded-md hover:bg-slate-100 focus:bg-slate-100"
-          type={type}
-          placeholder={placeholder}
-          value={options[option]}
-          onInput={e => (optionsStore.options[option] = (e.target as HTMLInputElement).value)}
-          min={min}
-          max={max}
-        />
-      </label>
-    </>
+    <Label text={label}>
+      <input
+        class="bg-slate-200 p-1 rounded-md hover:bg-slate-100 focus:bg-slate-100"
+        type={type}
+        placeholder={placeholder}
+        value={options[option]}
+        onInput={e => (optionsStore.options[option] = (e.target as HTMLInputElement).value)}
+        min={min}
+        max={max}
+      />
+    </Label>
   );
 }
