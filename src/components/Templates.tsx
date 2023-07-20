@@ -3,16 +3,10 @@ import { VNode } from "preact";
 import { Label } from "./common/Label";
 import templates from "@/templates.json";
 import { statusStore } from "@/store/statusStore";
+import { loadTemplate } from "@/lib/loadTemplate";
 
 export function Templates(): VNode {
-  type TemplateInfo = {
-    name: string;
-    start: string;
-    end: string;
-    walls: string[];
-  };
-
-  function selectTemplate(e: Event) {
+  function selectTemplate(e: Event): void {
     const templateName = (e.target as HTMLSelectElement).value;
 
     if (templateName === "custom") return;
@@ -23,7 +17,7 @@ export function Templates(): VNode {
 
     for (const t of templates) {
       if (t.name === templateName) {
-        console.log(t);
+        loadTemplate(t);
         break;
       }
     }

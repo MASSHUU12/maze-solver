@@ -1,18 +1,21 @@
 [
   {
     "name": "Template 1",
+    "size": 25,
     "start": "13,12",
     "end": "13,14",
-    "walls": ["0,0"]
+    "walls": ["0,0", "0,2", "0,4-6"]
   },
   {
     "name": "Template 2",
+    "size": 25,
     "start": "13,12",
     "end": "13,14",
     "walls": ["0,0"]
   },
   {
     "name": "Template 3",
+    "size": 25,
     "start": "13,12",
     "end": "13,14",
     "walls": ["0,0"]
