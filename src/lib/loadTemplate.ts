@@ -1,4 +1,6 @@
 import { CellValue } from "@/enums";
+
+import { optionsStore } from "@/store/optionsStore";
 import { gridStore, resizeGrid } from "@/store/gridStore";
 
 type TemplateInfo = {
@@ -11,7 +13,7 @@ type TemplateInfo = {
 
 export function loadTemplate(t: TemplateInfo): void {
   resizeGrid(t.size);
-  gridStore.template = t.name;
+  optionsStore.options.template = t.name;
 
   const { start, end, walls } = t;
   const [startX, startY] = start.split(":").map(coord => parseInt(coord));

@@ -1,8 +1,6 @@
 import { VNode } from "preact";
 import { useEffect } from "preact/hooks";
 
-import { Grid } from "@/lib/grid";
-
 import { Button } from "./common/Button";
 import { Toolbar } from "./common/Toolbar";
 import { OptionInput } from "./common/OptionInput";
@@ -22,7 +20,7 @@ export function Options(): VNode {
    * @returns {void}
    */
   function apply(): void {
-    const size = optionsStore.options["gridSize"];
+    const size = optionsStore.options.gridSize;
 
     resizeGrid(size);
   }

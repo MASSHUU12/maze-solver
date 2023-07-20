@@ -9,6 +9,7 @@ interface OptionsStore {
   options: {
     [key: string]: string | number;
     gridSize: number;
+    template: string;
   };
 }
 
@@ -20,5 +21,6 @@ interface OptionsStore {
 export const optionsStore: OptionsStore = proxy<OptionsStore>({
   options: {
     gridSize: 25,
+    template: "custom",
   },
 });

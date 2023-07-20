@@ -4,6 +4,7 @@ import { Grid } from "@/lib/grid";
 import { CellValue } from "@/enums";
 import { statusStore } from "./statusStore";
 import { CellColor, cellColor } from "@/helpers/cellColor";
+import { optionsStore } from "./optionsStore";
 
 /**
  * Represents the grid store object.
@@ -13,7 +14,6 @@ import { CellColor, cellColor } from "@/helpers/cellColor";
 interface GridStore {
   grid: Grid;
   selectedColor: cellColor;
-  template: string;
 }
 
 /**
@@ -24,7 +24,6 @@ interface GridStore {
 export const gridStore = proxy<GridStore>({
   grid: new Grid(25),
   selectedColor: CellColor.Passage,
-  template: "custom",
 });
 
 /**
@@ -33,11 +32,14 @@ export const gridStore = proxy<GridStore>({
 export function resetGridStore() {
   const size = gridStore.grid.size;
   gridStore.selectedColor = CellColor.Passage;
-  gridStore.template = "custom";
 
   for (let i = 0; i < size * size; i++) {
     gridStore.grid.grid[i] = CellValue.Passage;
   }
+
+  resizeGrid(25);
+
+  optionsStore.options.gridSize = 25;
 
   statusStore.status = "The board has been reset.";
 }
