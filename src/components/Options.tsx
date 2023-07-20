@@ -1,14 +1,18 @@
 import { VNode } from "preact";
 import { useEffect } from "preact/hooks";
 
+import templates from "@/templates.json";
+
 import { Button } from "./common/Button";
 import { Toolbar } from "./common/Toolbar";
 import { OptionInput } from "./common/OptionInput";
 
 import { Templates } from "./Templates";
+import { loadTemplate } from "@/lib/loadTemplate";
 
-import { resizeGrid } from "@/store/gridStore";
+import { resetGridStore, resizeGrid } from "@/store/gridStore";
 import { optionsStore } from "@/store/optionsStore";
+import { statusStore } from "@/store/statusStore";
 
 /**
  * Options component.
@@ -21,8 +25,26 @@ export function Options(): VNode {
    */
   function apply(): void {
     const size = optionsStore.options.gridSize;
+    const template = optionsStore.options.template;
 
     resizeGrid(size);
+
+    if (template === "custom") {
+      resetGridStore();
+      return;
+    }
+
+    if (template === "random") {
+      statusStore.status = "Random is not yet implemented.";
+      return;
+    }
+
+    for (const t of templates) {
+      if (t.name === template) {
+        loadTemplate(t);
+        break;
+      }
+    }
   }
 
   useEffect(() => {

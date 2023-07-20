@@ -1,13 +1,10 @@
 import { VNode } from "preact";
 import { useSnapshot } from "valtio";
 
-import { statusStore } from "@/store/statusStore";
-import { resetGridStore } from "@/store/gridStore";
 import { optionsStore } from "@/store/optionsStore";
 
 import { Label } from "./common/Label";
 import templates from "@/templates.json";
-import { loadTemplate } from "@/lib/loadTemplate";
 
 export function Templates(): VNode {
   const store = useSnapshot(optionsStore.options);
@@ -15,22 +12,7 @@ export function Templates(): VNode {
   function selectTemplate(e: Event): void {
     const templateName = (e.target as HTMLSelectElement).value;
 
-    if (templateName === "custom") {
-      resetGridStore();
-      optionsStore.options.template = "custom";
-      return;
-    }
-    if (templateName === "random") {
-      statusStore.status = "Random is not yet implemented.";
-      return;
-    }
-
-    for (const t of templates) {
-      if (t.name === templateName) {
-        loadTemplate(t);
-        break;
-      }
-    }
+    optionsStore.options.template = templateName;
   }
 
   return (
