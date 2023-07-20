@@ -9,6 +9,7 @@ import { OptionInput } from "./common/OptionInput";
 
 import { gridStore } from "@/store/gridStore";
 import { optionsStore } from "@/store/optionsStore";
+import { Templates } from "./Templates";
 
 /**
  * Options component.
@@ -42,6 +43,7 @@ export function Options(): VNode {
             apply();
           }}>
           <OptionInput option="gridSize" label="Grid size" type="number" placeholder="Grid size" min={2} />
+          <Templates />
           <Button action={apply}>
             <span>Apply</span>
           </Button>
