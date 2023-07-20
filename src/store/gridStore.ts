@@ -4,6 +4,7 @@ import { Grid } from "@/lib/grid";
 import { CellValue } from "@/enums";
 import { statusStore } from "./statusStore";
 import { CellColor, cellColor } from "@/helpers/cellColor";
+import { optionsStore } from "./optionsStore";
 
 /**
  * Represents the grid store object.
@@ -36,5 +37,16 @@ export function resetGridStore() {
     gridStore.grid.grid[i] = CellValue.Passage;
   }
 
+  resizeGrid(25);
+
+  optionsStore.options.gridSize = 25;
+
   statusStore.status = "The board has been reset.";
+}
+
+export function resizeGrid(size: number): void {
+  const grid = new Grid(size);
+
+  gridStore.grid.grid = grid.grid;
+  gridStore.grid.size = size;
 }

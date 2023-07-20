@@ -1,14 +1,18 @@
 import { VNode } from "preact";
 import { useEffect } from "preact/hooks";
 
-import { Grid } from "@/lib/grid";
+import templates from "@/templates.json";
 
 import { Button } from "./common/Button";
 import { Toolbar } from "./common/Toolbar";
 import { OptionInput } from "./common/OptionInput";
 
-import { gridStore } from "@/store/gridStore";
+import { Templates } from "./Templates";
+import { loadTemplate } from "@/lib/loadTemplate";
+
+import { resetGridStore, resizeGrid } from "@/store/gridStore";
 import { optionsStore } from "@/store/optionsStore";
+import { statusStore } from "@/store/statusStore";
 
 /**
  * Options component.
@@ -20,11 +24,28 @@ export function Options(): VNode {
    * @returns {void}
    */
   function apply(): void {
-    const size = optionsStore.options["gridSize"];
-    const grid = new Grid(size);
+    const size = optionsStore.options.gridSize;
+    const template = optionsStore.options.template;
 
-    gridStore.grid.grid = grid.grid;
-    gridStore.grid.size = size;
+    resizeGrid(size);
+
+    if (template === "custom") {
+      resetGridStore();
+      return;
+    }
+
+    if (template === "random") {
+      statusStore.status = "Random is not yet implemented.";
+      return;
+    }
+
+    for (const t of templates) {
+      if (t.name === template) {
+        loadTemplate(t);
+        statusStore.status = `Loaded template: ${template}.`;
+        break;
+      }
+    }
   }
 
   useEffect(() => {
@@ -42,6 +63,7 @@ export function Options(): VNode {
             apply();
           }}>
           <OptionInput option="gridSize" label="Grid size" type="number" placeholder="Grid size" min={2} />
+          <Templates />
           <Button action={apply}>
             <span>Apply</span>
           </Button>

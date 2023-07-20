@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "preact/hooks";
 import { CellValue } from "@/enums";
 import { gridStore } from "@/store/gridStore";
 import { CellColor } from "@/helpers/cellColor";
+import { optionsStore } from "@/store/optionsStore";
 
 /**
  * Props for the MazeCell component.
@@ -66,6 +67,7 @@ export function MazeCell({ row, col }: Props): VNode {
     const currPos = [parseInt(row), parseInt(col)];
 
     gridStore.grid.setCellValue(currPos[0], currPos[1], gridStore.selectedColor.value);
+    optionsStore.options.template = "custom";
   }
 
   return (
