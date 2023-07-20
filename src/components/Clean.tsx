@@ -3,6 +3,7 @@ import { VNode } from "preact";
 import { CellValue } from "@/enums";
 import { Button } from "./common/Button";
 import { gridStore } from "@/store/gridStore";
+import { statusStore } from "@/store/statusStore";
 
 /**
  * Renders a "Clean" button component.
@@ -23,6 +24,8 @@ export function Clean(): VNode {
 
       if (value[i] === CellValue.Chosen) gridStore.grid.grid[i] = CellValue.Passage;
     }
+
+    statusStore.status = "Removed solution from the board.";
   }
 
   return (
