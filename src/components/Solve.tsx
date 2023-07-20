@@ -24,12 +24,16 @@ export function Solve(): VNode {
       return;
     }
 
+    const startTime = performance.now();
     const path = bfs(start);
+    const endTime = performance.now();
 
     if (path === null) {
       statusStore.status = "The maze has no solution.";
       return;
     }
+
+    statusStore.status = `Solution found in ${((startTime - endTime) / 1000).toFixed(2)}ms.`;
 
     path.forEach(node => {
       gridStore.grid.setCellValue(node.row, node.col, node.value);
