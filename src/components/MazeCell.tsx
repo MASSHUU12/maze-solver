@@ -66,6 +66,9 @@ export function MazeCell({ row, col }: Props): VNode {
     const currPos = [parseInt(row), parseInt(col)];
 
     gridStore.grid.setCellValue(currPos[0], currPos[1], gridStore.selectedColor.value);
+
+    // eslint-disable-next-line valtio/state-snapshot-rule
+    gridStore.template = "custom";
   }
 
   return (

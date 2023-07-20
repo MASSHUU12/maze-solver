@@ -13,6 +13,7 @@ import { CellColor, cellColor } from "@/helpers/cellColor";
 interface GridStore {
   grid: Grid;
   selectedColor: cellColor;
+  template: string;
 }
 
 /**
@@ -23,6 +24,7 @@ interface GridStore {
 export const gridStore = proxy<GridStore>({
   grid: new Grid(25),
   selectedColor: CellColor.Passage,
+  template: "custom",
 });
 
 /**
@@ -31,6 +33,7 @@ export const gridStore = proxy<GridStore>({
 export function resetGridStore() {
   const size = gridStore.grid.size;
   gridStore.selectedColor = CellColor.Passage;
+  gridStore.template = "custom";
 
   for (let i = 0; i < size * size; i++) {
     gridStore.grid.grid[i] = CellValue.Passage;
