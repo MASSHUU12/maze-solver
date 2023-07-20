@@ -7,9 +7,10 @@ import { Button } from "./common/Button";
 import { Toolbar } from "./common/Toolbar";
 import { OptionInput } from "./common/OptionInput";
 
-import { gridStore } from "@/store/gridStore";
-import { optionsStore } from "@/store/optionsStore";
 import { Templates } from "./Templates";
+
+import { resizeGrid } from "@/store/gridStore";
+import { optionsStore } from "@/store/optionsStore";
 
 /**
  * Options component.
@@ -22,10 +23,8 @@ export function Options(): VNode {
    */
   function apply(): void {
     const size = optionsStore.options["gridSize"];
-    const grid = new Grid(size);
 
-    gridStore.grid.grid = grid.grid;
-    gridStore.grid.size = size;
+    resizeGrid(size);
   }
 
   useEffect(() => {

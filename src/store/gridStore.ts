@@ -38,3 +38,10 @@ export function resetGridStore() {
 
   statusStore.status = "The board has been reset.";
 }
+
+export function resizeGrid(size: number): void {
+  const grid = new Grid(size);
+
+  gridStore.grid.grid = grid.grid;
+  gridStore.grid.size = size;
+}
