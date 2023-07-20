@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Template 1",
+    "start": "13,12",
+    "end": "13,14",
+    "walls": ["0,0"]
+  },
+  {
+    "name": "Template 2",
+    "start": "13,12",
+    "end": "13,14",
+    "walls": ["0,0"]
+  },
+  {
+    "name": "Template 3",
+    "start": "13,12",
+    "end": "13,14",
+    "walls": ["0,0"]
+  }
+]
