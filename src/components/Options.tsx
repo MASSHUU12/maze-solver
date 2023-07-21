@@ -1,18 +1,19 @@
 import { VNode } from "preact";
 import { useEffect } from "preact/hooks";
 
+import { Templates } from "./Templates";
 import templates from "@/templates.json";
 
 import { Button } from "./common/Button";
 import { Toolbar } from "./common/Toolbar";
 import { OptionInput } from "./common/OptionInput";
 
-import { Templates } from "./Templates";
 import { loadTemplate } from "@/lib/loadTemplate";
+import { generateRandomMaze } from "@/lib/randomMazeGenerator";
 
-import { resetGridStore, resizeGrid } from "@/store/gridStore";
-import { optionsStore } from "@/store/optionsStore";
 import { statusStore } from "@/store/statusStore";
+import { optionsStore } from "@/store/optionsStore";
+import { resetGridStore, resizeGrid } from "@/store/gridStore";
 
 /**
  * Options component.
@@ -35,7 +36,7 @@ export function Options(): VNode {
     }
 
     if (template === "random") {
-      statusStore.status = "Random is not yet implemented.";
+      generateRandomMaze();
       return;
     }
 
