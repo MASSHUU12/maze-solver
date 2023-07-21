@@ -1,8 +1,6 @@
 import { VNode } from "preact";
 import { useSnapshot } from "valtio";
-import { useEffect } from "preact/hooks";
 
-import { CellValue } from "@/enums";
 import { MazeCell } from "./MazeCell";
 import { gridStore } from "@/store/gridStore";
 
@@ -13,21 +11,6 @@ import { gridStore } from "@/store/gridStore";
  */
 export function Maze(): VNode {
   const grid = useSnapshot(gridStore.grid);
-
-  // Test maze
-  useEffect(() => {
-    for (let i = 0; i < 10; i++) {
-      gridStore.grid.setCellValue(i, 0, CellValue.Wall);
-      gridStore.grid.setCellValue(0, i, CellValue.Wall);
-      gridStore.grid.setCellValue(i, 9, CellValue.Wall);
-      gridStore.grid.setCellValue(9, i, CellValue.Wall);
-      gridStore.grid.setCellValue(5, i, CellValue.Wall);
-    }
-
-    gridStore.grid.setCellValue(0, 4, CellValue.Start);
-    gridStore.grid.setCellValue(9, 7, CellValue.End);
-    gridStore.grid.setCellValue(5, 6, CellValue.Passage);
-  }, []);
 
   /**
    * Renders the grid cells.

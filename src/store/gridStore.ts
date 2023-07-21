@@ -23,7 +23,7 @@ interface GridStore {
  */
 export const gridStore = proxy<GridStore>({
   grid: new Grid(25),
-  selectedColor: CellColor.Passage,
+  selectedColor: CellColor.Wall,
 });
 
 /**
@@ -31,7 +31,7 @@ export const gridStore = proxy<GridStore>({
  */
 export function resetGridStore() {
   const size = gridStore.grid.size;
-  gridStore.selectedColor = CellColor.Passage;
+  gridStore.selectedColor = CellColor.Wall;
 
   for (let i = 0; i < size * size; i++) {
     gridStore.grid.grid[i] = CellValue.Passage;
