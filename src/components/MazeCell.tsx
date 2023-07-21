@@ -73,7 +73,10 @@ export function MazeCell({ row, col }: Props): VNode {
   return (
     <td
       ref={td}
-      onClick={() => changeCellType(`${row},${col}`)}
+      onMouseDown={() => changeCellType(`${row},${col}`)}
+      onMouseOver={e => {
+        if (e.buttons === 1) changeCellType(`${row},${col}`);
+      }}
       class={`cursor-pointer ${bgColor} border-2 border-slate-200 hover:brightness-90`}
       key={`${row},${col}`}></td>
   );
