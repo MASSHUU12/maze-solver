@@ -65,7 +65,7 @@ export function Options(): VNode {
           }}>
           <OptionInput option="gridSize" label="Grid size" type="number" placeholder="Grid size" min={2} />
           <Templates />
-          <Button action={apply}>
+          <Button action={() => {}}>
             <span>Apply</span>
           </Button>
         </form>
